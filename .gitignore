@@ -1,0 +1,10 @@
+# .gitignore
+.idea/*
+# 环境
+.venv
+venv
+backend_template.egg-info
+
+# logs
+logs/
+*.log
