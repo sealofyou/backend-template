@@ -3,25 +3,23 @@ from typing import Optional, Any
 from pydantic import BaseModel
 from utils.businessexception import ErrorCode
 
-
-# 统一响应模型
-class ResponseModel(BaseModel):
+class ResponseData(BaseModel):
     code: int
     message: str
     data: Optional[Any] = None  # 默认为 None
 
-    @classmethod
-    def success(cls, data: Any = None, message: str = None):
-        return cls(
-            code=ErrorCode.SUCCESS.code,
-            message=message or ErrorCode.SUCCESS.message,  # 可选自定义消息
-            data=data
-        )
-
-    @classmethod
-    def error(cls, error_code: ErrorCode, message: str = None, data: Any = None):
-        return cls(
-            code=error_code.code,
-            message=message or error_code.message,  # 优先使用传入 message
-            data=data  # 可选传入 data
-        )
+# 统一响应模型
+class ResponseModel(BaseModel):
+    
+    @staticmethod
+    def success(data: Any = None, message: str = None):
+        code = ErrorCode.SUCCESS.code
+        message = message or ErrorCode.SUCCESS.message
+        data = data
+        return ResponseData(code=code, message=message, data=data)
+    @ staticmethod
+    def error(error_code: ErrorCode, message: str = None, data: Any = None):
+        code = error_code.SUCCESS.code
+        message = message or ErrorCode.SUCCESS.message
+        data = data
+        return ResponseData(code=code, message=message, data=data)

@@ -17,8 +17,16 @@ class ErrorCode(Enum):
     OPERATION_ERROR = (50001, "操作失败")
 
     def __init__(self, code: int, message: str):
-        self.code = code
-        self.message = message
+        self._code = code
+        self._message = message
+
+    @property
+    def code(self):
+        return self._code
+
+    @property
+    def message(self):
+        return self._message
 
 
 # 自定义异常基类

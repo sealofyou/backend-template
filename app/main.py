@@ -1,13 +1,13 @@
 from fastapi import FastAPI
-from app.core.config import settings
+from core.config import settings
 
-from app.modules.base import routers as base_routers
+from modules.base.test import router as base_routers
 # from app.modules.ml import routers as ml_routers
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
 # 按需挂载路由
-app.include_router(base_routers.router, prefix=settings.API_V1_STR + "/base")
+app.include_router(base_routers, prefix=settings.API_V1_STR + "/base")
 # app.include_router(ml_routers.router, prefix=settings.API_V1_STR + "/ml")
 
 
@@ -19,5 +19,8 @@ def root():
 
 if __name__ == "__main__":
     import uvicorn
-
-    uvicorn.run(app, host=settings.HOST, port=settings.PORT)
+    try:
+        # uvicorn.run(app, host=settings.HOST, port=settings.PORT)
+        uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)
+    except KeyboardInterrupt as e:
+        print(f"{settings.API_V1_STR} 已关闭")

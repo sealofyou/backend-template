@@ -1,6 +1,3 @@
-def main():
-    print("Hello from backend-template!")
+from .app.utils.businessexception import ErrorCode
 
-
-if __name__ == "__main__":
-    main()
+print(ErrorCode.SUCCESS.code)
