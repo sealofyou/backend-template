@@ -1,6 +1,8 @@
 import logging
 import os
-from fastapi import APIRouter, File, UploadFile
+from typing import Annotated
+from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi.security import OAuth2PasswordBearer
 from dao.TestData import Data
 from utils.baseresponse import ResponseModel
 from core.fileConfig import accept_file, file_prefix_path
@@ -61,3 +63,8 @@ async def upload_file_test(file: UploadFile):
             f.write(chunk)
     await file.close()
     return ResponseModel.success(file_path)
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+@router.get("/items/")
+async def read_items(token: Annotated[str| None, Depends(oauth2_scheme)]):
+    return {"token": token}

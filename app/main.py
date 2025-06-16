@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+import time
+from fastapi import FastAPI, Request
 from core.config import settings
 
 from modules.base.test import router as base_routers
@@ -20,6 +21,16 @@ if settings.USE_MILVUS:
     # 这里按需导入
     # from modules.milvus.milvus_client import router as ml_router
     app.include_router(ml_router, prefix=settings.API_V1_STR + "/milvus")
+
+
+# 添加中间件判断程序运行时间
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.perf_counter()
+    response = await call_next(request)
+    process_time = time.perf_counter() - start_time
+    response.headers["X-Process-Time"] = str(process_time) + "s"
+    return response
 
 
 

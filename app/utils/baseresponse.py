@@ -19,7 +19,7 @@ class ResponseModel(BaseModel):
         return ResponseData(code=code, message=message, data=data)
     @ staticmethod
     def error(error_code: ErrorCode, message: str = None, data: Any = None):
-        code = error_code.SUCCESS.code
-        message = message or ErrorCode.SUCCESS.message
+        code = error_code.code
+        message = message or error_code.message
         data = data
         return ResponseData(code=code, message=message, data=data)
