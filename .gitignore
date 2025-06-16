@@ -8,3 +8,6 @@ backend_template.egg-info
 # logs
 logs/
 *.log
+
+__pycache__/
+*.pyc
