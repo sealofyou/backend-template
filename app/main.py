@@ -13,8 +13,14 @@ app.include_router(base_routers, prefix=settings.API_V1_STR + "/base")
 
 @app.get("/")
 def root():
-
     return {"message": f"Welcome to {settings.PROJECT_NAME}"}
+
+# 导入你的milvusus模块router
+if settings.USE_MILVUS:
+    # 这里按需导入
+    # from modules.milvus.milvus_client import router as ml_router
+    app.include_router(ml_router, prefix=settings.API_V1_STR + "/milvus")
+
 
 
 if __name__ == "__main__":
