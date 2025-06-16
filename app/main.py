@@ -4,7 +4,7 @@ from core.config import settings
 from modules.base import routers as base_routers
 from utils.logger import LOGGER
 from utils.businessexception import register_exception_handlers
-from utils.cors import CORSSetup
+from core.cors import CORSSetup
 
 # from modules.ml import routers as ml_routers
 

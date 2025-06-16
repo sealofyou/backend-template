@@ -12,10 +12,10 @@ class Settings(BaseSettings):
     PORT: int = 8000
 
     # 跨域配置
-    allow_origins = ["*"]
-    allow_credentials = True
-    allow_methods = ["GET", "POST", "PUT", "DELETE"]
-    allow_headers = ["*"]
+    allow_origins: list[str] = ["*"]
+    allow_credentials: bool = True
+    allow_methods: list[str] = ["GET", "POST", "PUT", "DELETE"]
+    allow_headers: list[str] = ["*"]
 
     # 日志配置
     LOG_NAME: str = "app"
