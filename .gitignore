@@ -8,3 +8,10 @@ backend_template.egg-info
 # logs
 logs/
 *.log
+
+# 缓存
+.pytest_cache
+.pytest_cache/
+
+# static files
+static/

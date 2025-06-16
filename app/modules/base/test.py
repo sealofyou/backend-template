@@ -1,6 +1,10 @@
-from fastapi import APIRouter
+import logging
+import os
+from fastapi import APIRouter, File, UploadFile
 from dao.TestData import Data
 from utils.baseresponse import ResponseModel
+from core.fileConfig import accept_file, file_prefix_path
+from utils.businessexception import ErrorCode
 
 
 router = APIRouter()
@@ -23,4 +27,37 @@ async def post_test(id:int, q:str | None = None, data: Data = None):
     if data: 
         res.update({"data": data})
     return ResponseModel.success(res)
-    
+
+@router.post("/file/", summary="上传文件测试接口", tags=["test"])
+async def file_test(file: bytes = File()):
+    """
+    此接口只用来进行上传文件测试在开发时请删去
+    该接口以bytes形式接收和读取文件内容适用于小型文件
+    """
+    return {"file_size": len(file)}
+
+@router.post("/uploadfile/", summary="优先采用上传文件测试接口", tags=["test"])
+async def upload_file_test(file: UploadFile):
+    """
+    此接口只用来进行上传文件测试在开发时请删去
+    该接口以UploadFile形式接收和读取文件内容适用于*所有文件*
+    """
+    filename = file.filename
+    type =  file.content_type
+    type, suffix= type.split("/")
+    if suffix not in accept_file:
+        return ResponseModel.error(ErrorCode.OPERATION_ERROR, f"文件类型错误只接受{accept_file}类型")
+    file_path = os.path.join(file_prefix_path, type, filename)
+    try:
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    except Exception as e:
+        logging.error(f"文件夹创建失败：" + e)
+        return ResponseModel.error(ErrorCode.OPERATION_ERROR, "文件夹创建失败")
+    with open(file_path, "wb") as f:
+        while True:
+            chunk = await file.read(1024)
+            if not chunk:
+                break
+            f.write(chunk)
+    await file.close()
+    return ResponseModel.success(file_path)
