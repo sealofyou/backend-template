@@ -6,13 +6,12 @@ import sys
 import logging
 import datetime
 
-from app.core.config import settings
+from core.config import settings
 
 try:
     import codecs
 except ImportError:
     codecs = None
-
 
 
 class MultiprocessHandler(logging.FileHandler):
