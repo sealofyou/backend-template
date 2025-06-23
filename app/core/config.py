@@ -11,6 +11,13 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "FastAPI Template"
     HOST: str = "127.0.0.1"
     PORT: int = 8001
+    WORKERS: int = 1 # 进程数
+
+    # 跨域配置
+    allow_origins: list[str] = ["*"]
+    allow_credentials: bool = True
+    allow_methods: list[str] = ["GET", "POST", "PUT", "DELETE"]
+    allow_headers: list[str] = ["*"]
 
     # 日志配置
     LOG_NAME: str = "app"

@@ -1,11 +1,26 @@
 import time
 from fastapi import FastAPI, Request
+from core.cors import CORSSetup
+from utils.businessexception import register_exception_handlers
 from core.config import settings
+from utils.logger import LOGGER
 
 from modules.base.test import router as base_routers
-# from app.modules.ml import routers as ml_routers
 
 app = FastAPI(title=settings.PROJECT_NAME)
+
+# 注册异常处理
+register_exception_handlers(app)
+LOGGER.info("注册异常处理")
+# 使用封装类配置 CORS
+cors_setup = CORSSetup(
+    app=app,
+    allow_origins=settings.allow_origins,
+    allow_credentials=settings.allow_credentials,
+    allow_methods=settings.allow_methods,
+    allow_headers=settings.allow_headers,
+).setup()
+LOGGER.info("CORS 配置完成")
 
 # 按需挂载路由
 app.include_router(base_routers, prefix=settings.API_V1_STR + "/base")
@@ -19,7 +34,7 @@ def root():
 # 导入你的milvusus模块router
 if settings.USE_MILVUS:
     # 这里按需导入
-    # from modules.milvus.milvus_client import router as ml_router
+    from modules.milvus.milvus_client import router as ml_router
     app.include_router(ml_router, prefix=settings.API_V1_STR + "/milvus")
 
 

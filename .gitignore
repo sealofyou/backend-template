@@ -12,6 +12,7 @@ logs/
 # 缓存
 .pytest_cache
 .pytest_cache/
+*.pyc
 
 # static files
 static/

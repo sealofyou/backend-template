@@ -1,4 +1,3 @@
-import logging
 import os
 from typing import Annotated
 from fastapi import APIRouter, Depends, File, UploadFile
@@ -7,6 +6,7 @@ from dao.TestData import Data
 from utils.baseresponse import ResponseModel
 from core.fileConfig import accept_file, file_prefix_path
 from utils.businessexception import ErrorCode
+from utils.logger import LOGGER as logging
 
 
 router = APIRouter()
