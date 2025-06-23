@@ -14,12 +14,15 @@ except ImportError:
     codecs = None
 
 
+<<<<<<< HEAD
 # 在 logger.py 中添加过滤器
 class IgnoreReloadFilter(logging.Filter):
     def filter(self, record):
         return "change detected" not in record.getMessage()
 
 
+=======
+>>>>>>> 3aae2fa7be90b7406884c181d17789549d9e0c9c
 class MultiprocessHandler(logging.FileHandler):
     def __init__(self, filename, when='D', backupCount=5, encoding=None, delay=False):
         self.prefix = filename

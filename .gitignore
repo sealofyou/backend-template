@@ -8,14 +8,12 @@ backend_template.egg-info
 # logs
 logs/
 *.log
-
 # 缓存
 .pytest_cache
 .pytest_cache/
+<<<<<<< HEAD
+=======
+__pycache__/
+>>>>>>> 3aae2fa7be90b7406884c181d17789549d9e0c9c
 *.pyc
 
-# static files
-static/
-
-# 测试文件
-app/modules/base/user/*
