@@ -14,6 +14,15 @@ except ImportError:
     codecs = None
 
 
+<<<<<<< HEAD
+# 在 logger.py 中添加过滤器
+class IgnoreReloadFilter(logging.Filter):
+    def filter(self, record):
+        return "change detected" not in record.getMessage()
+
+
+=======
+>>>>>>> 3aae2fa7be90b7406884c181d17789549d9e0c9c
 class MultiprocessHandler(logging.FileHandler):
     def __init__(self, filename, when='D', backupCount=5, encoding=None, delay=False):
         self.prefix = filename
@@ -107,12 +116,14 @@ def setup_logger(name="app", level=logging.DEBUG, when='D', backup_count=5):
     stream_handler = logging.StreamHandler(sys.stdout)
     stream_handler.setLevel(logging.INFO)
     stream_handler.setFormatter(fmt)
+    stream_handler.addFilter(IgnoreReloadFilter())
 
     # 文件输出
     file_handler = MultiprocessHandler(name, when=when, backupCount=backup_count)
     file_handler.setLevel(level)
     file_handler.setFormatter(fmt)
     file_handler.doChangeFile()
+    file_handler.addFilter(IgnoreReloadFilter())
 
     logger.addHandler(stream_handler)
     logger.addHandler(file_handler)
