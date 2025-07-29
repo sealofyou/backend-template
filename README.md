@@ -1,10 +1,19 @@
-# Fastapi 后端模板项目
+## 项目说明
+ 项目基于FastAPI开发，为后续模型相关服务开发实现节省时间
+1. 服务开发放到modules中
+2. 接口记得写：
+   1. 装饰器中地址后面写：summary="接口名称", tags=["分类名"], response_model=返回格式
+   2. 函数名下写："""段注释，可以生成，但尽可能全一些"""
+   3. 原因：可以直接生成接口文档，apifox接口文档自动导入后看着会很舒服。
+3. 模型相关函数放到ml中
+4. 设置app为源根，from不添加app. ,避免项目放到linux无法启动，报错：No module named 'app'
+5. logger使用：
+```python
+from app.utils.logger import LOGGER
+LOGGER.info("hello world")
+```
 
-## 项目目录结构
-由于大部分模型调用方式，实现逻辑不同，这里考虑将其放弃，后续会考虑使用插件的方式来实现
-1. requests调用
-2. 路由添加，将其放到ml目录下。
-
+## 项目结构
 ```
 fastapi-template/
 ├── app/
@@ -12,30 +21,20 @@ fastapi-template/
 │   │   ├── config.py
 │   │   ├── security.py
 │   │   └── dependencies.py
-│   ├── modules/               # 功能模块
-│   │   ├── base/              # 基础模块(用户管理)
-│   │   │   ├── models.py
-│   │   │   ├── schemas.py
-│   │   │   ├── crud.py
-│   │   │   ├── routers.py
-│   │   │   └── __init__.py
 │   │   └── __init__.py
-│   │   ├── ml/                # 机器学习模块 具体看模型实现，这里只是 一个例子
-│   │   │   ├── model_loader.py
-│   │   │   ├── schemas.py
-│   │   │   ├── routers.py
-│   │   │   └── __init__.py
-│   ├── db/                    # 数据库相关
-│   │   ├── session.py
-│   │   └── redis.py           # Redis连接(按需添加)
-│   ├── utils/                 # 工具函数
-│   │   └── logger.py
-│   ├── main.py                # 应用入口
-│   └── __init__.py
+│   ├── modules/               # 功能模块 在这里添加
+│   │   ├── models/            # pydantic 模型
+│   │   └── __init__.py
+│   ├── db/                    # 数据库相关 数据库/向量库
+│   │   └── __init__.py
+│   └── utils/                 # 工具函数
+│       └── logger.py
 ├── tests/                     # 测试目录
+├── main.py                    # 应用入口
 ├── requirements.txt           # 依赖文件
 ├── .env                       # 环境变量
 ├── Dockerfile
 └── README.md
 ```
-
+运行：
+在根目录下执行： python main.py
