@@ -4,8 +4,8 @@ from fastapi import Depends, HTTPException, APIRouter, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 
-from utils.baseresponse import ResponseModel
-from utils.businessexception import ErrorCode
+from app.utils.baseresponse import ResponseModel
+from app.utils.businessexception import ErrorCode
 
 fake_users_db = {
     "johndoe": {

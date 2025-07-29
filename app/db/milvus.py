@@ -1,5 +1,5 @@
 from pymilvus import MilvusClient
-from core.config import settings
+from app.core.config import settings
 import logging
 
 milvus_client = None

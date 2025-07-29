@@ -1,7 +1,7 @@
 from typing import Optional, Any
 
 from pydantic import BaseModel
-from utils.businessexception import ErrorCode
+from app.utils.businessexception import ErrorCode
 
 class ResponseData(BaseModel):
     code: int

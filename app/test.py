@@ -1,5 +1,5 @@
 # 此文件用来测试接口情况
-from .main import app
+from main import app
 from fastapi.testclient import TestClient
 
 client = TestClient(app)
