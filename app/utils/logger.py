@@ -120,7 +120,7 @@ def setup_logger(name="app", level=logging.DEBUG, when='D', backup_count=5):
 
 
 # 初始化日志器
-LOGGER = setup_logger(
+logging = setup_logger(
     name=settings.LOG_NAME,
     level=settings.LOG_LEVEL,
     when=settings.LOG_WHEN,

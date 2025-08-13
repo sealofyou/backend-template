@@ -6,7 +6,7 @@ from dao.TestData import Data
 from utils.baseresponse import ResponseModel
 from core.fileConfig import accept_file, file_prefix_path
 from utils.businessexception import ErrorCode
-from utils.logger import LOGGER as logging
+from utils.logger import logging
 
 
 router = APIRouter()

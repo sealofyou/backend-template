@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from app.utils.logger import LOGGER
+from app.utils.logger import logging
 
 # from db.session import get_db
 # from . import schemas, crud
@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.get("/test")
 def base():
-    LOGGER.info("base")
+    logging.info("base")
     return {"message": "base"}
 
 # @router.post("/users/", response_model=schemas.UserOut)

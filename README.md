@@ -6,11 +6,11 @@
    2. 函数名下写："""段注释，可以生成，但尽可能全一些"""
    3. 原因：可以直接生成接口文档，apifox接口文档自动导入后看着会很舒服。
 3. 模型相关函数放到ml中
-4. 设置app为源根，from不添加app. ,避免项目放到linux无法启动，报错：No module named 'app'
-5. logger使用：
+4. logger使用：
 ```python
-from app.utils.logger import LOGGER
-LOGGER.info("hello world")
+from app.utils.logger import logging
+
+logging.info("hello world")
 ```
 
 ## 项目结构

@@ -1,20 +1,24 @@
+import os
 import time
 from fastapi import FastAPI, Request
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.staticfiles import StaticFiles
 
 from app.core.config import settings
-from app.utils.logger import LOGGER
+from app.utils.logger import logging
 from app.utils.businessexception import register_exception_handlers
 from app.core.cors import CORSSetup
 from app.modules.base.test import router as base_routers
 
-app = FastAPI(title=settings.PROJECT_NAME)
-# 注册异常处理
-register_exception_handlers(app)
-LOGGER.info("注册异常处理")
+app = FastAPI(title=settings.PROJECT_NAME, docs_url=None)
+
+# 路径配置
+settings.PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+logging.info(f"{settings.PROJECT_PATH} 已启动")
 
 # 注册异常处理
 register_exception_handlers(app)
-LOGGER.info("注册异常处理")
+logging.info("注册异常处理")
 
 # 使用封装类配置 CORS
 cors_setup = CORSSetup(
@@ -24,18 +28,29 @@ cors_setup = CORSSetup(
     allow_methods=settings.allow_methods,
     allow_headers=settings.allow_headers,
 ).setup()
-LOGGER.info("CORS 配置完成")
+logging.info("CORS 配置完成")
 
-# 按需挂载路由
-app.include_router(base_routers, prefix=settings.API_V1_STR + "/base")
-# app.include_router(ml_routers.router, prefix=settings.API_V1_STR + "/ml")
+# 挂载静态文件夹
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # 按需挂载路由 此处可以通过config + if 判断是否挂载
 # if settings.USE_USER_MODULE:
 #     app.include_router(user_routers.router, prefix=settings.API_V1_STR + "/user")
 app.include_router(base_routers.router, prefix=settings.API_V1_STR + "/base")
 
-LOGGER.info("路由配置完成")
+
+# 自定义 Swagger 文档路由，指向本地的 Swagger UI 文件
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - Swagger UI",
+        swagger_js_url="/static/swagger-ui/swagger-ui-bundle.js",
+        swagger_css_url="/static/swagger-ui/swagger-ui.css"
+    )
+
+
+logging.info("路由配置完成")
 
 
 @app.get("/")
