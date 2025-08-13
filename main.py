@@ -36,7 +36,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # 按需挂载路由 此处可以通过config + if 判断是否挂载
 # if settings.USE_USER_MODULE:
 #     app.include_router(user_routers.router, prefix=settings.API_V1_STR + "/user")
-app.include_router(base_routers.router, prefix=settings.API_V1_STR + "/base")
 
 
 # 自定义 Swagger 文档路由，指向本地的 Swagger UI 文件
@@ -72,7 +71,7 @@ if __name__ == "__main__":
     import uvicorn
 
     try:
-        # uvicorn.run(app, host=settings.HOST, port=settings.PORT)
-        uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)
+        uvicorn.run(app, host=settings.HOST, port=settings.PORT)
+        # uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)
     except KeyboardInterrupt as e:
         print(f"{settings.API_V1_STR} 已关闭")

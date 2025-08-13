@@ -10,8 +10,11 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     PROJECT_NAME: str = "FastAPI Template"
     HOST: str = "127.0.0.1"
-    PORT: int = 8001
+    PORT: int = 8000
     WORKERS: int = 1 # 进程数
+
+    # 项目路径
+    PROJECT_PATH: str = ""
 
     # 跨域配置
     allow_origins: list[str] = ["*"]
