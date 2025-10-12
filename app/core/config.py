@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "FastAPI Template"
     HOST: str = "127.0.0.1"
     PORT: int = 8000
-    WORKERS: int = 1 # 进程数
+    WORKERS: int = 1  # 进程数
 
     # 项目路径
     PROJECT_PATH: str = ""
@@ -40,19 +40,17 @@ class Settings(BaseSettings):
 
     # Redis配置(按需启用)
     # REDIS_URL: Optional[AnyUrl] = None
-    
+
     # milvus 配置(按需启用)
     USE_MILVUS: bool = False
     MILVUS_HOST: str = os.getenv("MILVUS_HOST", "127.0.0.1")
-    MILVUS_PORT: int = os.getenv("MILVUS_PORT", 19530)
-    MILVUS_COLLECTION_NAME: str = os.getenv("MILVUS_COLLECTION_NAME", "test_collection")
+    MILVUS_PORT: int = os.getenv("MILVUS_PORT", 9530)
+    MILVUS_COLLECTION_NAME: str = os.getenv("MILVUS_COLLECTION_NAME", "test")
     VECTOR_DIMENSION: int = os.getenv("VECTOR_DIMENSION", 768)
     METRIC_TYPE: str = os.getenv("METRIC_TYPE", "L2")
 
     # modules ########################
-    # 用户模块
-    USE_USER_MODULE: bool = True
-    
+
     model_config = SettingsConfigDict(env_file=".env")
 
 
