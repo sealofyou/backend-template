@@ -1,8 +1,17 @@
 # .gitignore
-.idea/*
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
 # 环境
 .venv
 venv
+env
+envs
 backend_template.egg-info
 
 # logs
@@ -11,8 +20,57 @@ logs/
 # 缓存
 .pytest_cache
 __pycache__/
+.cache/
 
 *.pyc
 *.pdf
 *.jpg
 *.png
+*.jpeg
+*.gif
+*.bmp
+*.ico
+
+# 模型文件
+*.pth
+*.pt
+*.h5
+*.hdf5
+*.onnx
+*.pb
+*.tflite
+*.joblib
+*.pickle
+*.pkl
+
+# 数据文件
+data/
+datasets/
+*.csv
+*.xlsx
+*.xls
+*.jsonl
+*.txt
+*.data
+*.dat
+
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
+# 测试覆盖率
+.coverage
+coverage.xml
+htmlcov/
+
+# 打包文件
+dist/
+build/
+*.whl
+*.tar.gz
+*.zip
+
+# 其他
+.DS_Store
+Thumbs.db

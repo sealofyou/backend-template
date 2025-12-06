@@ -65,19 +65,50 @@ backend-template/
 
 ### 运行项目
 
-#### 使用Python直接运行
+#### 1. 环境配置
+
+首先，复制环境变量示例文件并根据需要修改：
+
+```bash
+cp .env.example .env
+```
+
+#### 2. 创建虚拟环境
+
+使用 `uv` 创建并激活虚拟环境：
+
+```bash
+# 创建虚拟环境
+uv venv
+
+# 激活虚拟环境 (Windows)
+.venv\Scripts\activate
+
+# 激活虚拟环境 (Linux/Mac)
+# source .venv/bin/activate
+```
+
+#### 3. 安装依赖
+
+```bash
+uv sync
+```
+
+#### 4. 启动服务
+
+##### 使用Python直接运行
 
 ```bash
 python main.py
 ```
 
-#### 使用Uvicorn运行（推荐用于生产环境）
+##### 使用Uvicorn运行（推荐用于生产环境）
 
 ```bash
 uvicorn main:app --host 127.0.0.1 --port 8001
 ```
 
-#### 使用Uvicorn运行（开发模式，支持热重载）
+##### 使用Uvicorn运行（开发模式，支持热重载）
 
 ```bash
 uvicorn main:app --host 127.0.0.1 --port 8001 --reload
