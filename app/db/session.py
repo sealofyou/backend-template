@@ -4,14 +4,15 @@ from sqlalchemy.orm import sessionmaker
 
 from app.core.config import settings
 
-# 按需初始化数据库
-if settings.DB_URL:
+# 始终定义 Base 类，即使数据库未配置
+Base = declarative_base()
+
+# 按需初始化数据库引擎和会话
+if settings.USE_DATABASE and settings.DB_URL:
     engine = create_engine(settings.DB_URL)
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    Base = declarative_base()
 else:
     SessionLocal = None
-    Base = None
 
 
 def get_db():

@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     LOG_BACKUP_COUNT: int = 5
 
     # 数据库配置(按需启用)
+    USE_DATABASE: bool = False
     DB_URL: Optional[AnyUrl] = None
     DB_TEST_URL: Optional[AnyUrl] = None
 

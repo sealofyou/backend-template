@@ -5,13 +5,14 @@ name = "backend-template"
 version = "0.1.0"
 
 dependencies = [
-    "fastapi==0.103.1",
-    "uvicorn[standard]==0.23.2",
-    "pydantic-settings==2.0.3",
-    "python-dotenv==1.0.0",
-    "sqlalchemy==2.0.21",
+    "fastapi==0.116.1",
+    "uvicorn[standard]==0.35.0",
+    "pydantic-settings==2.11.0",
+    "python-dotenv==1.1.1",
+    "sqlalchemy>=2.0.46",
+    "pymysql==1.1.2",
     "redis==4.6.0",
-    "python-multipart==0.0.6",
+    "python-multipart==0.0.20",
 ]
 
 [build-system]

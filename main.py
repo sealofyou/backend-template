@@ -37,6 +37,11 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # if settings.USE_USER_MODULE:
 #     app.include_router(user_routers.router, prefix=settings.API_V1_STR + "/user")
 
+# 挂载数据库相关路由
+if settings.USE_DATABASE and settings.DB_URL:
+    from app.modules.base.routers import router as database_routers
+    app.include_router(database_routers, prefix=settings.API_V1_STR + "/user")
+
 
 # 自定义 Swagger 文档路由，指向本地的 Swagger UI 文件
 @app.get("/docs", include_in_schema=False)
